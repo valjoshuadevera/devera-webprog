@@ -1,44 +1,58 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Layout
-import Layout from './components/layout';
+import Layout from "./layouts/layout";
 
 // Pages
-import HomePage from './pages/Homepage';
-import AboutPage from './pages/AboutPage';
-import ArticlePage from './pages/ArticlePage';
-import ArticleListPage from './pages/ArticleListPage';
-import NotFoundPage from './components/NotFoundPage';
+import HomePage from "./pages/LandingPages/Homepage";
+import AboutPage from "./pages/LandingPages/AboutPage";
+import ArticlePage from "./pages/LandingPages/ArticlePage";
+import ArticleListPage from "./pages/LandingPages/ArticleListPage";
+import NotFoundPage from "./pages/NotFoundPage";
+
+import SignInPage from "./pages/authPages/SignInPage";
+import SignUpPage from "./pages/authPages/SignUpPage";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     children: [
       {
-        path: '',
+        path: "",
         element: <HomePage />,
       },
       {
-        path: 'about',
+        path: "about",
         element: <AboutPage />,
       },
       {
-        path: 'articles',
+        path: "articles",
         element: <ArticleListPage />,
       },
       {
-        path: 'articles/:name',
+        path: "articles/:name",
         element: <ArticlePage />,
       },
+
+      // ✅ ADD AUTH ROUTES HERE
       {
-        path: '*',
+        path: "signin",
+        element: <SignInPage />,
+      },
+      {
+        path: "signup",
+        element: <SignUpPage />,
+      },
+
+      {
+        path: "*",
         element: <NotFoundPage />,
       },
     ],
   },
   {
-    path: '*',
+    path: "*",
     element: <NotFoundPage />,
   },
 ];

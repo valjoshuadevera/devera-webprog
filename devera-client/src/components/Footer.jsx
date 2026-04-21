@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/images/wwelogos.png";
+import logo from "../assets/images/wwelog.jpg";
 
 const Footer = () => {
   return (
