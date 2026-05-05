@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "firstName": "Maria",
+    "lastName": "Santos",
+    "age": 24,
+    "gender": "female",
+    "contactNumber": "09171234567",
+    "email": "maria.santos@example.com",
+    "role": "admin",
+    "username": "mariasantos",
+    "password": "password123",
+    "address": "Quezon City",
+    "isActive": true
+  },
+  {
+    "id": 2,
+    "firstName": "Juan",
+    "lastName": "Dela Cruz",
+    "age": 27,
+    "gender": "male",
+    "contactNumber": "09281234567",
+    "email": "juan.delacruz@example.com",
+    "role": "editor",
+    "username": "juandelacruz",
+    "password": "password123",
+    "address": "Manila",
+    "isActive": true
+  },
+  {
+    "id": 3,
+    "firstName": "Ana",
+    "lastName": "Reyes",
+    "age": 22,
+    "gender": "female",
+    "contactNumber": "09391234567",
+    "email": "ana.reyes@example.com",
+    "role": "viewer",
+    "username": "anareyes",
+    "password": "password123",
+    "address": "Makati",
+    "isActive": false
+  }
+]
