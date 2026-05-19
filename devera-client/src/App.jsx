@@ -1,59 +1,63 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-// Layout
-import Layout from "./layouts/layout";
+// Layouts
+import Layout from './layouts/Layout';
+import AuthLayout from './layouts/AuthLayout';
+import DashLayout from './layouts/DashLayout'; // New Layout
+import { AuthProvider } from "./context/context.jsx";
+// Landing Pages
+import HomePage from './pages/LandingPages/HomePage';
+import AboutPage from './pages/LandingPages/AboutPage';
+import ArticleListPage from './pages/LandingPages/ArticleListPage';
+import ArticlePage from './pages/LandingPages/ArticlePage';
 
-// Pages
-import HomePage from "./pages/LandingPages/Homepage";
-import AboutPage from "./pages/LandingPages/AboutPage";
-import ArticlePage from "./pages/LandingPages/ArticlePage";
-import ArticleListPage from "./pages/LandingPages/ArticleListPage";
-import NotFoundPage from "./pages/NotFoundPage";
+// Auth Pages
+import SignInPage from './pages/authPages/SignInPage';
+import SignUpPage from './pages/authPages/SignUpPage';
 
-import SignInPage from "./pages/authPages/SignInPage";
-import SignUpPage from "./pages/authPages/SignUpPage";
+// Dashboard Pages
+import DashboardPage from './pages/DashboardPages/DashboardPage'; // New Page
+import ReportsPage from './pages/DashboardPages/ReportPage';     // New Page
+import UsersPage from './pages/DashboardPages/UserPage';         // New Page
+
+// Error Page
+import NotFoundPage from './pages/NotFoundPage';
 
 const routes = [
+  // --- Landing / Main Routes ---
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
+    errorElement: <NotFoundPage />,
     children: [
-      {
-        path: "",
-        element: <HomePage />,
-      },
-      {
-        path: "about",
-        element: <AboutPage />,
-      },
-      {
-        path: "articles",
-        element: <ArticleListPage />,
-      },
-      {
-        path: "articles/:name",
-        element: <ArticlePage />,
-      },
-
-      // ✅ ADD AUTH ROUTES HERE
-      {
-        path: "signin",
-        element: <SignInPage />,
-      },
-      {
-        path: "signup",
-        element: <SignUpPage />,
-      },
-
-      {
-        path: "*",
-        element: <NotFoundPage />,
-      },
+      { path: '', element: <HomePage /> }, // Using empty string for index
+      { path: 'about', element: <AboutPage /> },
+      { path: 'articles', element: <ArticleListPage /> },
+      { path: 'articles/:name', element: <ArticlePage /> },
     ],
   },
+
+  // --- Auth Routes ---
   {
-    path: "*",
-    element: <NotFoundPage />,
+    path: 'auth',
+    element: <AuthLayout />,
+    errorElement: <NotFoundPage />,
+    children: [
+      { path: 'signin', element: <SignInPage /> },
+      { path: 'signup', element: <SignUpPage /> },
+    ],
+  },
+
+  // --- Dashboard Routes ---
+  {
+    path: 'dashboard',
+    element: <DashLayout />,
+    errorElement: <NotFoundPage />,
+    children: [
+      { path: '', element: <DashboardPage /> },
+      { path: 'reports', element: <ReportsPage /> },
+      { path: 'users', element: <UsersPage /> },
+    ],
   },
 ];
 

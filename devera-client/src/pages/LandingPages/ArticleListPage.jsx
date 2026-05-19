@@ -1,8 +1,8 @@
 import Button from "../../components/button.jsx";
-import articles from "../../assets/article-content.js";
+import articles from "../../data/article-content.js";
 
 const ArticleListPage = () => {
-  return (
+  return (  
     <div className="bg-black text-white min-h-screen pt-24 px-6">
 
       <section className="mb-10">
