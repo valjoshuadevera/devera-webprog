@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Layouts
-import Layout from './layouts/Layout';
+import Layout from './layouts/layout';
 import AuthLayout from './layouts/AuthLayout';
-import DashLayout from './layouts/DashLayout'; // New Layout
+import DashLayout from './layouts/dashLayout'; // New Layout
 import { AuthProvider } from "./context/context.jsx";
 // Landing Pages
-import HomePage from './pages/LandingPages/HomePage';
+import HomePage from './pages/LandingPages/Homepage';
 import AboutPage from './pages/LandingPages/AboutPage';
 import ArticleListPage from './pages/LandingPages/ArticleListPage';
 import ArticlePage from './pages/LandingPages/ArticlePage';

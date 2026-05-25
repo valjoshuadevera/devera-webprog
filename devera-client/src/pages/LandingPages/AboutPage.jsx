@@ -1,4 +1,4 @@
-import Button from "../../components/button";
+import Button from "../../components/Button";
 
 import hero from "../../assets/images/hhh.jpg";
 import becky from "../../assets/images/becky.jpg";

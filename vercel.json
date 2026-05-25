@@ -1,0 +1,11 @@
+{
+  "installCommand": "cd devera-client && npm install",
+  "buildCommand": "cd devera-client && npm run build",
+  "outputDirectory": "devera-client/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

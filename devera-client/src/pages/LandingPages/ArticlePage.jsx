@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import Button from "../../components/button.jsx";
+import Button from "../../components/Button.jsx";
 import articles from "../../data/article-content.js";
 
 function ArticlePage() {

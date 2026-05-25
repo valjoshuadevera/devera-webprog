@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import Button from './button';
+import Button from './Button';
 import logo from "../assets/images/wwelogo.png";
  
 const links = [
