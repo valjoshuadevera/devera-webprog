@@ -1,8 +1,12 @@
 {
-  "installCommand": "cd devera-client && npm install",
+  "installCommand": "cd devera-client && npm install && cd ../devera-server/devera-server && npm install",
   "buildCommand": "cd devera-client && npm run build",
   "outputDirectory": "devera-client/dist",
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

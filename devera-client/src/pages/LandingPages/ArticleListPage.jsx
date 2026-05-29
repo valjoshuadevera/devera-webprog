@@ -1,7 +1,49 @@
+import { useEffect, useState } from "react";
 import Button from "../../components/Button.jsx";
-import articles from "../../data/article-content.js";
+import staticArticles from "../../data/article-content.js";
+import wweLogo from "../../assets/images/wwelogo.png";
+import constants from "../../constants.js";
+
+const mapStaticArticle = (article) => ({
+  slug: article.name,
+  title: article.title,
+  preview: article.content?.[0] || "",
+  img: article.img,
+  source: "static",
+});
 
 const ArticleListPage = () => {
+  const [articles, setArticles] = useState(staticArticles.map(mapStaticArticle));
+
+  useEffect(() => {
+    const loadArticles = async () => {
+      try {
+        const response = await fetch(`${constants.HOST}/articles`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Unable to load articles.");
+        }
+
+        const apiArticles = (data.articles || [])
+          .filter((article) => article.status === "published" && article.isActive !== false)
+          .map((article) => ({
+            slug: article.slug,
+            title: article.title,
+            preview: article.preview,
+            img: wweLogo,
+            source: "api",
+          }));
+
+        setArticles([...apiArticles, ...staticArticles.map(mapStaticArticle)]);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    loadArticles();
+  }, []);
+
   return (  
     <div className="bg-black text-white min-h-screen pt-24 px-6">
 
@@ -19,7 +61,7 @@ const ArticleListPage = () => {
 
           {articles.map((event) => (
             <div
-              key={event.name}
+              key={`${event.source}-${event.slug}`}
               className="min-w-[280px] bg-zinc-900 rounded-xl overflow-hidden hover:scale-105 hover:shadow-lg transition duration-300"
             >
               <img
@@ -34,7 +76,7 @@ const ArticleListPage = () => {
                 </h3>
 
                 <Button
-                  to={`/articles/${event.name}`}
+                  to={`/articles/${event.slug}`}
                   className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white"
                 >
                   View Details

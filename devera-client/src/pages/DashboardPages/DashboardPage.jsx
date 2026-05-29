@@ -5,6 +5,7 @@ import {
   CardContent,
   Chip,
   Grid,
+  Button,
   List,
   ListItem,
   ListItemAvatar,
@@ -13,12 +14,15 @@ import {
   Typography,
 } from "@mui/material";
 import ArticleIcon from "@mui/icons-material/Article";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import AddIcon from "@mui/icons-material/Add";
 import GroupIcon from "@mui/icons-material/Group";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";
+import { Link as RouterLink } from "react-router-dom";
 import users from "../../data/users.json";
 import articles from "../../data/article-content";
 
@@ -151,6 +155,25 @@ function DashboardPage() {
             "& .MuiChip-icon": { color: palette.green },
           }}
         />
+      </Stack>
+
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ mb: 3 }}>
+        <Button
+          component={RouterLink}
+          to="/dashboard/articles"
+          variant="contained"
+          startIcon={<AddIcon />}
+        >
+          Add Article
+        </Button>
+        <Button
+          component={RouterLink}
+          to="/articles"
+          variant="outlined"
+          startIcon={<OpenInNewIcon />}
+        >
+          View Landing Articles
+        </Button>
       </Stack>
 
       <Grid container spacing={2} sx={{ mb: 3 }}>

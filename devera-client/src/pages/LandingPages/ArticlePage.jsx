@@ -1,11 +1,64 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "../../components/Button.jsx";
-import articles from "../../data/article-content.js";
+import staticArticles from "../../data/article-content.js";
+import wweLogo from "../../assets/images/wwelogo.png";
+import constants from "../../constants.js";
 
 function ArticlePage() {
   const { name } = useParams();
+  const [apiArticle, setApiArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const article = articles.find(a => a.name === name);
+  const staticArticle = staticArticles.find(a => a.name === name);
+  const article = apiArticle || staticArticle;
+
+  useEffect(() => {
+    const loadArticle = async () => {
+      setLoading(true);
+
+      try {
+        const response = await fetch(`${constants.HOST}/articles/${name}`);
+
+        if (response.status === 404) {
+          setApiArticle(null);
+          return;
+        }
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Unable to load article.");
+        }
+
+        if (data.status !== "published" || data.isActive === false) {
+          setApiArticle(null);
+          return;
+        }
+
+        setApiArticle({
+          title: data.title,
+          img: wweLogo,
+          content: [data.paragraph],
+        });
+      } catch (err) {
+        console.error(err);
+        setApiArticle(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadArticle();
+  }, [name]);
+
+  if (loading && !staticArticle) {
+    return (
+      <div className="text-center p-10 text-white bg-black min-h-screen">
+        <h2 className="text-2xl mb-4">Loading article...</h2>
+      </div>
+    );
+  }
 
   if (!article) {
     return (

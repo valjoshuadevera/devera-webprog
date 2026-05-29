@@ -19,6 +19,7 @@ import SignUpPage from './pages/authPages/SignUpPage';
 import DashboardPage from './pages/DashboardPages/DashboardPage'; // New Page
 import ReportsPage from './pages/DashboardPages/ReportPage';     // New Page
 import UsersPage from './pages/DashboardPages/UserPage';         // New Page
+import DashboardArticleListPage from './pages/DashboardPages/ArticleListPage';
 
 // Error Page
 import NotFoundPage from './pages/NotFoundPage';
@@ -55,6 +56,7 @@ const routes = [
     errorElement: <NotFoundPage />,
     children: [
       { path: '', element: <DashboardPage /> },
+      { path: 'articles', element: <DashboardArticleListPage /> },
       { path: 'reports', element: <ReportsPage /> },
       { path: 'users', element: <UsersPage /> },
     ],

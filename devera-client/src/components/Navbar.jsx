@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Button from './Button';
 import logo from "../assets/images/wwelogo.png";
@@ -15,9 +16,26 @@ const navLinkClassName = ({ isActive }) =>
       ? 'border-zinc-900 bg-zinc-900 text-zinc-50'
       : 'border-transparent text-zinc-500 hover:border-zinc-900 hover:bg-zinc-50 hover:text-zinc-900',
   ].join(' ');
+
+const getStoredUserType = () => {
+  const storedUser = localStorage.getItem("user");
+
+  if (!storedUser) {
+    return "";
+  }
+
+  try {
+    return JSON.parse(storedUser)?.type || "";
+  } catch {
+    return "";
+  }
+};
  
 const NavBar = () => {
   const navigate = useNavigate();
+  const [userType] = useState(getStoredUserType);
+
+  const isAdmin = userType === "admin";
  
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b-2 border-zinc-900 bg-zinc-100/95 backdrop-blur">
@@ -44,6 +62,14 @@ const NavBar = () => {
  
         {/* AUTH BUTTONS (WWE STYLE) */}
         <div className="flex items-center gap-2">
+          {isAdmin && (
+            <Button
+              to="/dashboard"
+              className="border-red-700 bg-zinc-900 text-white hover:bg-red-700"
+            >
+              Dashboard
+            </Button>
+          )}
  
          {/* SIGN IN */}
 <button
