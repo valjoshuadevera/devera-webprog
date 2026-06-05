@@ -4,6 +4,7 @@ import Button from "../../components/Button.jsx";
 import staticArticles from "../../data/article-content.js";
 import wweLogo from "../../assets/images/wwelogo.png";
 import constants from "../../constants.js";
+import { createApiError, readApiResponse } from "../../utils/api.js";
 
 function ArticlePage() {
   const { name } = useParams();
@@ -25,10 +26,10 @@ function ArticlePage() {
           return;
         }
 
-        const data = await response.json();
+        const data = await readApiResponse(response);
 
         if (!response.ok) {
-          throw new Error(data.message || "Unable to load article.");
+          throw createApiError(data, "Unable to load article.");
         }
 
         if (data.status !== "published" || data.isActive === false) {

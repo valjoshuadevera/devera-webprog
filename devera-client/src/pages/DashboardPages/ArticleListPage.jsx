@@ -22,6 +22,7 @@ import AddIcon from "@mui/icons-material/Add";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Link as RouterLink } from "react-router-dom";
 import constants from "../../constants";
+import { createApiError, readApiResponse } from "../../utils/api";
 
 const blankForm = {
   title: "",
@@ -64,10 +65,10 @@ function ArticleListPage() {
 
     try {
       const response = await fetch(`${constants.HOST}/articles`);
-      const data = await response.json();
+      const data = await readApiResponse(response);
 
       if (!response.ok) {
-        throw new Error(data.message || "Unable to load articles.");
+        throw createApiError(data, "Unable to load articles.");
       }
 
       setArticles(data.articles || []);
@@ -119,10 +120,10 @@ function ArticleListPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = await response.json();
+      const data = await readApiResponse(response);
 
       if (!response.ok) {
-        throw new Error(data.message || "Unable to add article.");
+        throw createApiError(data, "Unable to add article.");
       }
 
       setArticles((prev) => [data, ...prev]);

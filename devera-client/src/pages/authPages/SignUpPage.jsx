@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import constants from "../../constants";
+import { createApiError, readApiResponse } from "../../utils/api";
 
 const roles = ["admin", "editor", "viewer"];
 
@@ -61,11 +62,11 @@ const SignUpPage = () => {
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = await readApiResponse(response);
 
       // HANDLE API ERRORS
       if (!response.ok) {
-        throw new Error(data.message || "Unable to create account.");
+        throw createApiError(data, "Unable to create account.");
       }
 
       // SAVE AUTH DATA

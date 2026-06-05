@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import constants from "../../constants";
+import { createApiError, readApiResponse } from "../../utils/api";
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -29,10 +30,10 @@ const SignInPage = () => {
         }),
       });
 
-      const data = await response.json();
+      const data = await readApiResponse(response);
 
       if (!response.ok) {
-        throw new Error(data.message || "Unable to sign in.");
+        throw createApiError(data, "Unable to sign in.");
       }
 
       localStorage.setItem("token", data.token);

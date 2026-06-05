@@ -3,6 +3,7 @@ import Button from "../../components/Button.jsx";
 import staticArticles from "../../data/article-content.js";
 import wweLogo from "../../assets/images/wwelogo.png";
 import constants from "../../constants.js";
+import { createApiError, readApiResponse } from "../../utils/api.js";
 
 const mapStaticArticle = (article) => ({
   slug: article.name,
@@ -19,10 +20,10 @@ const ArticleListPage = () => {
     const loadArticles = async () => {
       try {
         const response = await fetch(`${constants.HOST}/articles`);
-        const data = await response.json();
+        const data = await readApiResponse(response);
 
         if (!response.ok) {
-          throw new Error(data.message || "Unable to load articles.");
+          throw createApiError(data, "Unable to load articles.");
         }
 
         const apiArticles = (data.articles || [])
